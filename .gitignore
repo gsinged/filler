@@ -56,3 +56,4 @@ CMakeLists.txt
 cmake-build-debug
 .idea
 *.swp
+gsinged.filler

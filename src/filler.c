@@ -52,8 +52,10 @@ int				get_player(t_fl *fl)
 {
 	char 	*line;
 
-	if ((get_next_line(0, &line) != 1))
-		return (ft_error());
+	get_next_line(0, &line);
+	ft_printf("%s\n", line);
+//	if ((get_next_line(0, &line) == 1))
+//		return (ft_error());
 	if (ft_strncmp(line, "$$$ exec p", 10))
 		return (ft_error());
 	if (*(line + 10) == '1')
@@ -77,6 +79,7 @@ t_fl		*init_fl(void)
 	if (!(fl = (t_fl*)malloc(sizeof(t_fl))))
 		return (ft_error_tfl());
 	ft_bzero(fl, sizeof(t_fl));
+	get_player(fl);
 	return(fl);
 }
 
