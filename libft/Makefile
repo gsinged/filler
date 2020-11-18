@@ -15,6 +15,8 @@ NAME = libft.a
 CC = gcc
 FLAGS = -Wall -Werror -Wextra
 
+INCLUDES = -I$(H_DIR) -I$(H_PRINTF_DIR)
+
 C_DIR = ./src/
 O_DIR = ./obj/
 H_DIR = ./inc/
@@ -22,6 +24,8 @@ H_DIR = ./inc/
 C_PRINTF_DIR = ./ft_printf/src/
 H_PRINTF_DIR = ./ft_printf/inc/
 O_PRINTF_DIR = ./ft_printf/obj/
+
+ALL_H = get_next_line.h libft.h
 
 ALL_C = ft_memset.c ft_bzero.c ft_memcpy.c ft_memccpy.c ft_memmove.c ft_memchr.c \
         ft_memcmp.c ft_strlen.c ft_strdup.c ft_strcpy.c ft_strncpy.c \
@@ -49,6 +53,8 @@ PRINTF_C = ft_printf.c ft_frmt_spec.c ft_spec_parser.c ft_specifier.c \
 		ft_tp2_print.c ft_tp3_4_process.c ft_general.c ft_tp2_assist.c \
 		ft_tp2_frc_print.c ft_frc_add.c ft_bigint_multi_a.c ft_spec_parser_a.c
 
+PRINTF_H = floatnumber.h libftprintf.h
+
 PRINTF_O = $(patsubst %.c, %.o, $(PRINTF_C))
 
 PRINTF_OBJ = $(patsubst %, $(O_PRINTF_DIR)%, $(PRINTF_O))
@@ -57,17 +63,20 @@ all: $(NAME)
 
 o_dir:
 	@mkdir -p $(O_DIR)
+
+printf_dir:
 	@mkdir -p $(O_PRINTF_DIR)
 
-$(NAME): o_dir $(OBJ) $(PRINTF_OBJ)
-	@ar rc $(NAME) $(OBJ) $(PRINTF_OBJ)
-	@ranlib $(NAME)
+$(NAME): $(OBJ) $(PRINTF_OBJ)
+	ar rc $(NAME) $(OBJ) $(PRINTF_OBJ)
+	ranlib $(NAME)
 
-$(O_DIR)%.o: $(C_DIR)%.c
-	$(CC) $(FLAGS) -c $< -o $@ -I$(H_DIR) -I$(H_PRINTF_DIR);
+$(O_DIR)%.o: $(C_DIR)%.c | o_dir
+	$(CC) $(FLAGS) $(INCLUDES) -o $@ -c $<
+#	$(CC) $(FLAGS) -c $< -o $@ $(INCLUDES);
 
-$(O_PRINTF_DIR)%.o: $(C_PRINTF_DIR)%.c
-	$(CC) $(FLAGS) -c $< -o $@ -I$(H_DIR) -I$(H_PRINTF_DIR);
+$(O_PRINTF_DIR)%.o: $(C_PRINTF_DIR)%.c | printf_dir
+	$(CC) $(FLAGS) -c $< -o $@ $(INCLUDES);
 
 clean:
 	@rm -rf $(O_DIR) $(O_PRINTF_DIR)

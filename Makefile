@@ -10,4 +10,53 @@
 #                                                                              #
 # **************************************************************************** #
 
+NAME = gsinged.filler
 
+INCLUDES = -I$(INCDIR) -I$(FTDIR)/inc/ -I$(FTDIR)/ft_printf/inc/
+
+CC = gcc
+FLAGS = -Wall -Werror -Wextra
+
+
+SRCDIR  = ./src/
+INCDIR  = ./inc/
+OBJDIR  = ./obj/
+FTDIR   = ./libft/
+
+FTNAME = libft.a
+
+INC = filler.h
+
+SRC = filler.c
+
+OBJ	= $(addprefix $(OBJDIR),$(SRC:.c=.o))
+
+
+
+LIBFT = $(FTDIR)$(FTNAME)
+
+
+
+all: $(NAME)
+
+obj:
+	@mkdir -p $(OBJDIR)
+
+$(OBJDIR)%.o: $(SRCDIR)%.c $(INCDIR)$(INC) | obj
+	$(CC) $(FLAGS) $(INCLUDES) -o $@ -c $<
+
+$(NAME): $(LIBFT) $(OBJ)
+	$(CC) $(OBJ) $(LIBFT) -o $(NAME)
+
+$(LIBFT):
+	@make -C $(FTDIR)
+
+clean:
+	rm -rf $(OBJDIR)
+	make -sC $(FTDIR) clean
+
+fclean: clean
+	rm -f $(NAME_PS) $(NAME_CH)
+	make -sC $(FTDIR) fclean
+
+re: fclean all
