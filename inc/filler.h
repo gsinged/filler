@@ -18,6 +18,9 @@
 typedef struct	s_filler
 {
 	int			pl;
+	int			x;
+	int			y;
+	int			xy;
 	int			*map;
 	int			size;
 	char		p[2];
