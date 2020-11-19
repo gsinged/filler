@@ -23,7 +23,9 @@ typedef struct	s_filler
 	int			xy;
 	int			*map;
 	int			size;
+	int			px;
+	int			py;
+	int			*p;
 }				t_fl;
-
 
 #endif

@@ -13,7 +13,7 @@
 #include "filler.h"
 #include <stdlib.h>
 
-void			ft_fl_delete(t_fl **fl)
+void		ft_fl_delete(t_fl **fl)
 {
 	if (fl && *fl)
 	{
@@ -28,19 +28,19 @@ void			ft_fl_delete(t_fl **fl)
 	}
 }
 
-t_fl			*ft_error_tfl(void)
+t_fl		*ft_error_tfl(void)
 {
 	exit(0);
 }
 
-int				ft_error(void)
+int			ft_error(void)
 {
 	exit(0);
 }
 
-int				get_player(t_fl *fl)
+int			get_player(t_fl *fl)
 {
-	char 	*line;
+	char	*line;
 	char	*s;
 
 	if ((get_next_line(0, &line) != 1))
@@ -60,7 +60,7 @@ int				get_player(t_fl *fl)
 	if (ft_strcmp(s, "gsinged.filler]"))
 		return (ft_error());
 	ft_strclr(line);
-	free (line);
+	free(line);
 	return (0);
 }
 
@@ -77,7 +77,7 @@ int			nbr_dig_nbr(int n)
 	return (i);
 }
 
-static int	get_size_map_a(char *line, int	*xy)
+static int	get_size_map_a(char *line, int *xy)
 {
 	int		i;
 
@@ -92,7 +92,7 @@ static int	get_size_map_a(char *line, int	*xy)
 
 int			get_size_map(t_fl *fl)
 {
-	char 	*line;
+	char	*line;
 	int		i;
 
 	if ((get_next_line(0, &line) != 1))
@@ -109,10 +109,9 @@ int			get_size_map(t_fl *fl)
 		return (ft_error());
 	fl->xy = fl->x * fl->y;
 	ft_strclr(line);
-	free (line);
+	free(line);
 	return (0);
 }
-
 
 int			init_map_f_str(t_fl *fl)
 {
@@ -135,9 +134,8 @@ int			init_map_f_str(t_fl *fl)
 	if (*(line + 4 + fl->y) != '\0')
 		return (ft_error());
 	ft_strclr(line);
-	free (line);
+	free(line);
 	return (0);
-
 }
 
 static char	*first_symb_line(char *line, int i, int n)
@@ -158,9 +156,10 @@ static char	*first_symb_line(char *line, int i, int n)
 	}
 	else if (i >= 1000)
 	{
-			if ((*line < '1' || *line > '9') && (n = ft_atoi(line)) != i)
-				return ((char*)ft_error_tfl());
-			n = nbr_dig_nbr(n);
+		n = ft_atoi(line);
+		if ((*line < '1' || *line > '9') && n != i)
+			return ((char *)ft_error_tfl());
+		n = nbr_dig_nbr(n);
 	}
 	if (*(line + n) != ' ')
 		return ((char*)ft_error_tfl());
@@ -184,6 +183,8 @@ int			init_map_line_p1(t_fl *fl, char *line, int x)
 			return (ft_error());
 		i++;
 	}
+	if (*(s + fl->y) != '\0')
+		return (ft_error());
 	return (0);
 }
 
@@ -204,6 +205,8 @@ int			init_map_line_p2(t_fl *fl, char *line, int x)
 			return (ft_error());
 		i++;
 	}
+	if (*(s + fl->y) != '\0')
+		return (ft_error());
 	return (0);
 }
 
@@ -215,7 +218,7 @@ int			init_map(t_fl *fl)
 
 	if (!(map = (int*)malloc(sizeof(int) * fl->xy)))
 		return (ft_error());
-	ft_bzero(map, sizeof(map));
+	ft_bzero(map, sizeof(int) * fl->xy);
 	fl->map = map;
 	i = 0;
 	while (i < fl->x)
@@ -230,7 +233,6 @@ int			init_map(t_fl *fl)
 		free(line);
 		i++;
 	}
-	ft_printf("END_line\n");
 	return (0);
 }
 
@@ -239,20 +241,87 @@ int			get_map(t_fl *fl)
 	get_size_map(fl);
 	init_map_f_str(fl);
 	init_map(fl);
-	return(0);
+	return (0);
+}
 
+int			get_size_piece(t_fl *fl)
+{
+	char	*line;
+	int		i;
+
+	if ((get_next_line(0, &line) != 1))
+		return (ft_error());
+	if (ft_strncmp(line, "Piece ", 6))
+		return (ft_error());
+	if (!(i = get_size_map_a(line + 6, &(fl->px))))
+		return (ft_error());
+	if (*(line + 6 + i) != ' ')
+		return (ft_error());
+	if (!(i += get_size_map_a(line + 7 + i, &(fl->py))))
+		return (ft_error());
+	if (ft_strcmp(line + 7 + i, ":"))
+		return (ft_error());
+	ft_strclr(line);
+	free(line);
+	return (0);
+}
+
+int			init_piece_line(t_fl *fl, char *s, int x)
+{
+	int		i;
+
+	i = 0;
+	while (i < fl->py)
+	{
+		if (*(s + i) == '*')
+			fl->p[fl->py * x + i] = 1;
+		else if (*(s + i) != '.')
+			return (ft_error());
+		i++;
+	}
+	if (*(s + fl->py) != '\0')
+		return (ft_error());
+	return (0);
+}
+
+int			get_piece(t_fl *fl)
+{
+	int		*p;
+	int		i;
+	char	*line;
+
+	get_size_piece(fl);
+	if (!(p = (int*)malloc(sizeof(int) * fl->px * fl->py)))
+		return (ft_error());
+	ft_bzero(p, sizeof(int) * fl->px * fl->py);
+	fl->p = p;
+	i = 0;
+	while (i < fl->px)
+	{
+		if ((get_next_line(0, &line) != 1))
+			return (ft_error());
+		init_piece_line(fl, line, i);
+		ft_strclr(line);
+		free(line);
+		i++;
+	}
+	return (0);
 }
 
 t_fl		*init_fl(void)
 {
 	t_fl		*fl;
+	char		*line;
 
 	if (!(fl = (t_fl*)malloc(sizeof(t_fl))))
 		return (ft_error_tfl());
 	ft_bzero(fl, sizeof(t_fl));
 	get_player(fl);
 	get_map(fl);
-	return(fl);
+	get_piece(fl);
+	if ((get_next_line(0, &line) != 0))
+		return (ft_error_tfl());
+	return (fl);
 }
 
 void		test_print_map(t_fl *fl)
@@ -279,13 +348,35 @@ void		test_print_map(t_fl *fl)
 	}
 }
 
+void		test_print_piece(t_fl *fl)
+{
+	int		i;
+	int		pxy;
+
+	if (fl->p)
+	{
+		ft_putchar('\n');
+		ft_printf("Piece %d %d\n", fl->px, fl->py);
+		i = 0;
+		pxy = fl->px * fl->py;
+		while (i < pxy)
+		{
+			if (fl->p[i] == 0)
+				ft_putchar('.');
+			else if (fl->p[i] == 1)
+				ft_putchar('*');
+			if (i % fl->py == fl->py - 1)
+				ft_putchar('\n');
+			i++;
+		}
+	}
+}
+
 int			fl(void)
 {
 	t_fl	*fl;
 
 	fl = init_fl();
-	ft_printf("OK,Player%d\n", fl->pl);
-	test_print_map(fl);
 	ft_fl_delete(&fl);
 	return (0);
 }
@@ -293,6 +384,5 @@ int			fl(void)
 int			main(void)
 {
 	fl();
-
 	return (0);
 }
