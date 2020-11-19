@@ -48,9 +48,9 @@ int				get_player(t_fl *fl)
 	if (ft_strncmp(line, "$$$ exec p", 10))
 		return (ft_error());
 	if (*(line + 10) == '1')
-		ft_strcpy(fl->p, "oO");
+		fl->pl = 1;
 	else if (*(line + 10) == '2')
-		ft_strcpy(fl->p, "xX");
+		fl->pl = 2;
 	else
 		return (ft_error());
 	if (ft_strncmp(line + 11, " : [", 4))
@@ -140,7 +140,7 @@ int			init_map_f_str(t_fl *fl)
 
 }
 
-static char	*first_symb_line(t_fl *fl, char *line, int i, int n)
+static char	*first_symb_line(char *line, int i, int n)
 {
 	if (i < 10)
 	{
@@ -167,37 +167,70 @@ static char	*first_symb_line(t_fl *fl, char *line, int i, int n)
 	return (line + n + 1);
 }
 
-int			init_map_line(t_fl *fl, char *line, int x, int n)
+int			init_map_line_p1(t_fl *fl, char *line, int x)
 {
 	char	*s;
 	int		i;
 
-	s = first_symb_line(fl, line, x, 3);
+	s = first_symb_line(line, x, 3);
 	i = 0;
 	while (i < fl->y)
 	{
-		
+		if (*(s + i) == 'o' || *(s + i) == 'O')
+			fl->map[fl->y * x + i] = 1;
+		else if (*(s + i) == 'x' || *(s + i) == 'X')
+			fl->map[fl->y * x + i] = -1;
+		else if (*(s + i) != '.')
+			return (ft_error());
+		i++;
 	}
+	return (0);
+}
 
+int			init_map_line_p2(t_fl *fl, char *line, int x)
+{
+	char	*s;
+	int		i;
 
+	s = first_symb_line(line, x, 3);
+	i = 0;
+	while (i < fl->y)
+	{
+		if (*(s + i) == 'x' || *(s + i) == 'X')
+			fl->map[fl->y * x + i] = 1;
+		else if (*(s + i) == 'o' || *(s + i) == 'O')
+			fl->map[fl->y * x + i] = -1;
+		else if (*(s + i) != '.')
+			return (ft_error());
+		i++;
+	}
+	return (0);
 }
 
 int			init_map(t_fl *fl)
 {
 	int		*map;
 	int		i;
+	char	*line;
 
 	if (!(map = (int*)malloc(sizeof(int) * fl->xy)))
 		return (ft_error());
+	ft_bzero(map, sizeof(map));
+	fl->map = map;
 	i = 0;
 	while (i < fl->x)
 	{
-
-
+		if ((get_next_line(0, &line) != 1))
+			return (ft_error());
+		if (fl->pl == 1)
+			init_map_line_p1(fl, line, i);
+		else if (fl->pl == 2)
+			init_map_line_p2(fl, line, i);
+		ft_strclr(line);
+		free(line);
+		i++;
 	}
-
-
-
+	ft_printf("END_line\n");
 	return (0);
 }
 
@@ -206,9 +239,6 @@ int			get_map(t_fl *fl)
 	get_size_map(fl);
 	init_map_f_str(fl);
 	init_map(fl);
-
-
-
 	return(0);
 
 }
@@ -222,27 +252,40 @@ t_fl		*init_fl(void)
 	ft_bzero(fl, sizeof(t_fl));
 	get_player(fl);
 	get_map(fl);
-
-	char *line;
-	while (get_next_line(0, &line))
-	{
-		ft_printf("||||%s\n", line);
-		ft_strclr(line);
-		free (line);
-	}
-
-
 	return(fl);
 }
 
+void		test_print_map(t_fl *fl)
+{
+	int		i;
+
+	if (fl->map)
+	{
+		ft_putchar('\n');
+		ft_printf("Plateau %d %d\n", fl->x, fl->y);
+		i = 0;
+		while (i < fl->xy)
+		{
+			if (fl->map[i] == 0)
+				ft_putchar('.');
+			else if (fl->map[i] == 1)
+				ft_putchar((fl->pl == 1 ? 'O' : 'X'));
+			else if (fl->map[i] == -1)
+				ft_putchar(fl->pl == 1 ? 'X' : 'O');
+			if (i % fl->y == fl->y - 1)
+				ft_putchar('\n');
+			i++;
+		}
+	}
+}
 
 int			fl(void)
 {
 	t_fl	*fl;
 
 	fl = init_fl();
-	ft_printf("OK, %c%c\n", fl->p[0], fl->p[1]);
-
+	ft_printf("OK,Player%d\n", fl->pl);
+	test_print_map(fl);
 	ft_fl_delete(&fl);
 	return (0);
 }

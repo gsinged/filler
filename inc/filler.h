@@ -23,7 +23,6 @@ typedef struct	s_filler
 	int			xy;
 	int			*map;
 	int			size;
-	char		p[2];
 }				t_fl;
 
 
