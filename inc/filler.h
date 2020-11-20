@@ -21,12 +21,10 @@ typedef struct	s_filler
 	int			pl;
 	int			x;
 	int			y;
-	int			xy;
 	int			*map;
-	int			size;
 	int			px;
 	int			py;
-	int			*p;
+	int			*piece;
 }				t_fl;
 
 t_fl			*init_fl(void);

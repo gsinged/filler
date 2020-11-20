@@ -55,7 +55,6 @@ int			get_size_map(t_fl *fl)
 		return (ft_error());
 	if (ft_strcmp(line + 9 + i, ":"))
 		return (ft_error());
-	fl->xy = fl->x * fl->y;
 	ft_strclr(line);
 	free(line);
 	return (0);

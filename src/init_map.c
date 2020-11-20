@@ -117,9 +117,9 @@ int			init_map(t_fl *fl)
 
 	get_size_map(fl);
 	init_map_f_str(fl);
-	if (!(map = (int*)malloc(sizeof(int) * fl->xy)))
+	if (!(map = (int*)malloc(sizeof(int) * fl->x * fl->y)))
 		return (ft_error());
-	ft_bzero(map, sizeof(int) * fl->xy);
+	ft_bzero(map, sizeof(int) * fl->x * fl->y);
 	fl->map = map;
 	i = 0;
 	while (i < fl->x)

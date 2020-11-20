@@ -18,7 +18,12 @@ void		ft_fl_delete(t_fl **fl)
 	{
 		if ((*fl)->map)
 		{
-			ft_bzero((*fl)->map, ((*fl)->size * sizeof(int)));
+			ft_bzero((*fl)->map, ((*fl)->x * (*fl)->y * sizeof(int)));
+			free((*fl)->map);
+		}
+		if ((*fl)->piece)
+		{
+			ft_bzero((*fl)->piece, ((*fl)->px * (*fl)->py * sizeof(int)));
 			free((*fl)->map);
 		}
 		ft_bzero(*fl, sizeof(t_fl));
@@ -40,13 +45,15 @@ int			ft_error(void)
 void		test_print_map(t_fl *fl)
 {
 	int		i;
+	int		xy;
 
 	if (fl->map)
 	{
+		xy = fl->x * fl->y;
 		ft_putchar('\n');
 		ft_printf("Plateau %d %d\n", fl->x, fl->y);
 		i = 0;
-		while (i < fl->xy)
+		while (i < xy)
 		{
 			if (fl->map[i] == 0)
 				ft_putchar('.');
@@ -66,7 +73,7 @@ void		test_print_piece(t_fl *fl)
 	int		i;
 	int		pxy;
 
-	if (fl->p)
+	if (fl->piece)
 	{
 		ft_putchar('\n');
 		ft_printf("Piece %d %d\n", fl->px, fl->py);
@@ -74,9 +81,9 @@ void		test_print_piece(t_fl *fl)
 		pxy = fl->px * fl->py;
 		while (i < pxy)
 		{
-			if (fl->p[i] == 0)
+			if (fl->piece[i] == 0)
 				ft_putchar('.');
-			else if (fl->p[i] == 1)
+			else if (fl->piece[i] == 1)
 				ft_putchar('*');
 			if (i % fl->py == fl->py - 1)
 				ft_putchar('\n');

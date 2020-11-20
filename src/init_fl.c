@@ -68,7 +68,7 @@ int			init_piece_line(t_fl *fl, char *s, int x)
 	while (i < fl->py)
 	{
 		if (*(s + i) == '*')
-			fl->p[fl->py * x + i] = 1;
+			fl->piece[fl->py * x + i] = 1;
 		else if (*(s + i) != '.')
 			return (ft_error());
 		i++;
@@ -88,7 +88,7 @@ int			get_piece(t_fl *fl)
 	if (!(p = (int*)malloc(sizeof(int) * fl->px * fl->py)))
 		return (ft_error());
 	ft_bzero(p, sizeof(int) * fl->px * fl->py);
-	fl->p = p;
+	fl->piece = p;
 	i = 0;
 	while (i < fl->px)
 	{
