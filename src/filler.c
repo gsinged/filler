@@ -37,13 +37,6 @@ int			ft_error(void)
 	exit(0);
 }
 
-
-
-
-
-
-
-
 void		test_print_map(t_fl *fl)
 {
 	int		i;

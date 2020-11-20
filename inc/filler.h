@@ -14,7 +14,7 @@
 # define FILLER_H
 
 # include "libft.h"
-#include <stdlib.h>
+# include <stdlib.h>
 
 typedef struct	s_filler
 {
@@ -33,6 +33,8 @@ t_fl			*init_fl(void);
 int				init_map(t_fl *fl);
 
 int				get_size_map_a(char *line, int *xy);
+int				get_size_map(t_fl *fl);
+int				nbr_dig_nbr(int n);
 
 int				ft_error(void);
 t_fl			*ft_error_tfl(void);
