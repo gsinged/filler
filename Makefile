@@ -27,15 +27,11 @@ FTNAME = libft.a
 
 INC = filler.h
 
-SRC = filler.c
+SRC = filler.c init_fl.c init_map.c init_map_a.c manhattan.c
 
 OBJ	= $(addprefix $(OBJDIR),$(SRC:.c=.o))
 
-
-
 LIBFT = $(FTDIR)$(FTNAME)
-
-
 
 all: $(NAME)
 

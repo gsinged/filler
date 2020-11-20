@@ -16,14 +16,20 @@
 # include "libft.h"
 # include <stdlib.h>
 
+# define FT_MIN(A, B) (((A) < (B)) ? (A) : (B))
+# define FT_MAX(A, B) (((A) > (B)) ? (A) : (B))
+# define FT_ABS(X) (((X) < 0) ? (-(X)) : (X))
+
 typedef struct	s_filler
 {
 	int			pl;
 	int			x;
 	int			y;
+	int			xy;
 	int			*map;
 	int			px;
 	int			py;
+	int			pxy;
 	int			*piece;
 }				t_fl;
 
@@ -33,6 +39,8 @@ int				init_map(t_fl *fl);
 int				get_size_map_a(char *line, int *xy);
 int				get_size_map(t_fl *fl);
 int				nbr_dig_nbr(int n);
+
+int				manhattan(t_fl *fl);
 
 int				ft_error(void);
 t_fl			*ft_error_tfl(void);

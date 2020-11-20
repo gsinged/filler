@@ -55,6 +55,7 @@ int			get_size_piece(t_fl *fl)
 		return (ft_error());
 	if (ft_strcmp(line + 7 + i, ":"))
 		return (ft_error());
+	fl->pxy = fl->px * fl->py;
 	ft_strclr(line);
 	free(line);
 	return (0);
@@ -85,9 +86,9 @@ int			get_piece(t_fl *fl)
 	char	*line;
 
 	get_size_piece(fl);
-	if (!(p = (int*)malloc(sizeof(int) * fl->px * fl->py)))
+	if (!(p = (int*)malloc(sizeof(int) * fl->pxy)))
 		return (ft_error());
-	ft_bzero(p, sizeof(int) * fl->px * fl->py);
+	ft_bzero(p, sizeof(int) * fl->pxy);
 	fl->piece = p;
 	i = 0;
 	while (i < fl->px)

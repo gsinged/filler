@@ -56,12 +56,16 @@ void		test_print_map(t_fl *fl)
 		while (i < xy)
 		{
 			if (fl->map[i] == 0)
-				ft_putchar('.');
-			else if (fl->map[i] == 1)
-				ft_putchar((fl->pl == 1 ? 'O' : 'X'));
+				ft_printf("%2c", '.');
+			else if (fl->map[i] > 0 )
+				ft_printf("%2d", fl->map[i]);
 			else if (fl->map[i] == -1)
-				ft_putchar(fl->pl == 1 ? 'X' : 'O');
-			if (i % fl->y == fl->y - 1)
+				ft_printf("%2c", (fl->pl == 1 ? 'O' : 'X'));
+			else if (fl->map[i] == -2)
+				ft_printf("%2c", fl->pl == 1 ? 'X' : 'O');
+			if (i % fl->y < fl->y - 1)
+				ft_putchar(' ');
+			else
 				ft_putchar('\n');
 			i++;
 		}
@@ -97,6 +101,10 @@ int			fl(void)
 	t_fl	*fl;
 
 	fl = init_fl();
+	manhattan(fl);
+	ft_printf("Manhatten\n");
+	test_print_map(fl);
+
 	ft_fl_delete(&fl);
 	return (0);
 }

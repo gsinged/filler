@@ -75,9 +75,9 @@ int			init_map_line_p1(t_fl *fl, char *line, int x)
 	while (i < fl->y)
 	{
 		if (*(s + i) == 'o' || *(s + i) == 'O')
-			fl->map[fl->y * x + i] = 1;
-		else if (*(s + i) == 'x' || *(s + i) == 'X')
 			fl->map[fl->y * x + i] = -1;
+		else if (*(s + i) == 'x' || *(s + i) == 'X')
+			fl->map[fl->y * x + i] = -2;
 		else if (*(s + i) != '.')
 			return (ft_error());
 		i++;
@@ -97,9 +97,9 @@ int			init_map_line_p2(t_fl *fl, char *line, int x)
 	while (i < fl->y)
 	{
 		if (*(s + i) == 'x' || *(s + i) == 'X')
-			fl->map[fl->y * x + i] = 1;
-		else if (*(s + i) == 'o' || *(s + i) == 'O')
 			fl->map[fl->y * x + i] = -1;
+		else if (*(s + i) == 'o' || *(s + i) == 'O')
+			fl->map[fl->y * x + i] = -2;
 		else if (*(s + i) != '.')
 			return (ft_error());
 		i++;
@@ -117,9 +117,9 @@ int			init_map(t_fl *fl)
 
 	get_size_map(fl);
 	init_map_f_str(fl);
-	if (!(map = (int*)malloc(sizeof(int) * fl->x * fl->y)))
+	if (!(map = (int*)malloc(sizeof(int) * fl->xy)))
 		return (ft_error());
-	ft_bzero(map, sizeof(int) * fl->x * fl->y);
+	ft_bzero(map, sizeof(int) * fl->xy);
 	fl->map = map;
 	i = 0;
 	while (i < fl->x)
