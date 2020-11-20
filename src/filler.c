@@ -24,7 +24,7 @@ void		ft_fl_delete(t_fl **fl)
 		if ((*fl)->piece)
 		{
 			ft_bzero((*fl)->piece, ((*fl)->px * (*fl)->py * sizeof(int)));
-			free((*fl)->map);
+			free((*fl)->piece);
 		}
 		ft_bzero(*fl, sizeof(t_fl));
 		free((*fl));
