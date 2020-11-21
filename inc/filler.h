@@ -41,6 +41,7 @@ int				get_size_map(t_fl *fl);
 int				nbr_dig_nbr(int n);
 
 int				manhattan(t_fl *fl);
+int				select_coordinates(t_fl *fl);
 
 int				ft_error(void);
 t_fl			*ft_error_tfl(void);

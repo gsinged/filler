@@ -17,6 +17,7 @@ int			check_coord(t_fl *fl, int i)
 	int		j;
 	int		m;
 	int		ext;
+	int		map;
 
 	if (((i / fl->y + fl->px) > fl->x) || ((i % fl->y + fl->py) > fl->y))
 		return (0);
@@ -27,7 +28,7 @@ int			check_coord(t_fl *fl, int i)
 	{
 		if (fl->piece[j])
 		{
-
+			map = fl->map[i + (j / fl->py) * fl->y + j % fl->py];
 			if (fl->map[i + (j / fl->py) * fl->y + j % fl->py] == -2)
 				return (0);
 			else if (fl->map[i + (j / fl->py) * fl->y + j % fl->py] == -1)
@@ -37,15 +38,23 @@ int			check_coord(t_fl *fl, int i)
 		}
 		j++;
 	}
+	if (ext != 0)
+		return (0);
 	return (m);
 }
+
+/*
+int			choose_better(t_fl *fl, int *crd, int  crd1)
+{
+	return (0);
+}
+*/
 
 int			select_coordinates(t_fl *fl)
 {
 	int		crd[2];
 	int		crd1[2];
 	int		i;
-	int		m;
 
 	i = 0;
 	crd[1] = 0;
@@ -62,13 +71,17 @@ int			select_coordinates(t_fl *fl)
 	{
 		if ((crd1[1] = check_coord(fl, i)))
 		{
-			crd[0] = i;
-			crd[1] = crd1[1];
+			if (crd[1] > crd1[1])
+			{
+				crd[0] = i;
+				crd[1] = crd1[1];
+			}
+//			else if (crd[1] == crd1[1])
 		}
 		i++;
 	}
-
-
-
+	if (crd[1])
+		ft_printf("%d %d\n", crd[0] / fl->y, crd[0] % fl->y);
+	return (0);
 }
 

@@ -102,9 +102,10 @@ int			fl(void)
 
 	fl = init_fl();
 	manhattan(fl);
-	ft_printf("Manhatten\n");
+	test_print_piece(fl);
+//	ft_printf("Manhatten\n");
 	test_print_map(fl);
-
+	select_coordinates(fl);
 	ft_fl_delete(&fl);
 	return (0);
 }
