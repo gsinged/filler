@@ -27,7 +27,7 @@ FTNAME = libft.a
 
 INC = filler.h
 
-SRC =	filler.c init_fl.c init_map.c init_map_a.c manhattan.c \
+SRC =	filler.c  get_map.c init_fl.c init_map.c init_map_a.c manhattan.c \
 		select_coordinates.c
 
 OBJ	= $(addprefix $(OBJDIR),$(SRC:.c=.o))

@@ -57,6 +57,7 @@ int			select_coordinates(t_fl *fl)
 	int		i;
 
 	i = 0;
+	crd[0] = 0;
 	crd[1] = 0;
 	while (i < fl->xy && !crd[1])
 	{
@@ -80,13 +81,9 @@ int			select_coordinates(t_fl *fl)
 		}
 		i++;
 	}
-	if (crd[1])
-	{
 		ft_putnbr(crd[0] / fl->y);
 		ft_putchar(' ');
 		ft_putnbr(crd[0] % fl->y);
 		ft_putchar('\n');
-		return (1);
-	}
 	return (0);
 }

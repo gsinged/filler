@@ -12,6 +12,19 @@
 
 #include "filler.h"
 
+void		ft_piece_delete(t_fl *fl)
+{
+	if (fl->piece)
+	{
+		ft_bzero(fl->piece, (fl->px * fl->py * sizeof(int)));
+		free(fl->piece);
+		fl->piece = NULL;
+		fl->px = 0;
+		fl->py = 0;
+		fl->pxy = 0;
+	}
+}
+
 void		ft_fl_delete(t_fl **fl)
 {
 	if (fl && *fl)
@@ -99,7 +112,6 @@ void		test_print_piece(t_fl *fl)
 int			fl(void)
 {
 	t_fl *fl;
-	int xy[2];
 
 	fl = init_fl();
 	manhattan(fl);
@@ -107,6 +119,12 @@ int			fl(void)
 //	ft_printf("Manhatten\n");
 //	test_print_map(fl);
 	select_coordinates(fl);
+
+	while (get_map(fl))
+	{
+		manhattan(fl);
+		select_coordinates(fl);
+	}
 	ft_fl_delete(&fl);
 	return (0);
 }

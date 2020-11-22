@@ -106,7 +106,6 @@ int			get_piece(t_fl *fl)
 t_fl		*init_fl(void)
 {
 	t_fl		*fl;
-//	char		*line;
 
 	if (!(fl = (t_fl*)malloc(sizeof(t_fl))))
 		return (ft_error_tfl());
@@ -114,7 +113,5 @@ t_fl		*init_fl(void)
 	get_player(fl);
 	init_map(fl);
 	get_piece(fl);
-//	if ((get_next_line(0, &line) != 0))
-//		return (ft_error_tfl());
 	return (fl);
 }

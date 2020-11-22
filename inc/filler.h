@@ -38,10 +38,16 @@ int				init_map(t_fl *fl);
 
 int				get_size_map_a(char *line, int *xy);
 int				get_size_map(t_fl *fl);
+int				init_map_f_str(t_fl *fl);
 int				nbr_dig_nbr(int n);
+int				init_map_line_p1(t_fl *fl, char *line, int x);
+int				init_map_line_p2(t_fl *fl, char *line, int x);
+int				get_piece(t_fl *fl);
 
 int				manhattan(t_fl *fl);
 int				select_coordinates(t_fl *fl);
+
+int				get_map(t_fl *fl);
 
 int				ft_error(void);
 t_fl			*ft_error_tfl(void);
