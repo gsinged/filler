@@ -18,11 +18,13 @@ int			check_coord(t_fl *fl, int i)
 	int		m;
 	int		ext;
 	int		map_i;
+	int		mm;
 
 	if (((i / fl->y + fl->px) > fl->x) || ((i % fl->y + fl->py) > fl->y))
 		return (0);
 	j = 0;
 	m = 0;
+	mm = 0;
 	ext = -1;
 	while (j < fl->pxy)
 	{
@@ -34,7 +36,9 @@ int			check_coord(t_fl *fl, int i)
 			else if (map_i == -1)
 				ext++;
 			else
+			{
 				m += map_i;
+			}
 		}
 		j++;
 	}
