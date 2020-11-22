@@ -98,13 +98,14 @@ void		test_print_piece(t_fl *fl)
 
 int			fl(void)
 {
-	t_fl	*fl;
+	t_fl *fl;
+	int xy[2];
 
 	fl = init_fl();
 	manhattan(fl);
-	test_print_piece(fl);
+//	test_print_piece(fl);
 //	ft_printf("Manhatten\n");
-	test_print_map(fl);
+//	test_print_map(fl);
 	select_coordinates(fl);
 	ft_fl_delete(&fl);
 	return (0);

@@ -20,7 +20,7 @@ int			manh_next(t_fl *fl, int i)
 
 	m = i;
 	i++;
-	while (i < fl->xy && fl->map [i] != -2)
+	while (i < fl->xy && fl->map[i] != -2)
 		i++;
 	if (i >= fl->xy)
 		return (0);
@@ -49,7 +49,7 @@ int			manh_prev(t_fl *fl, int i)
 
 	m = i;
 	i--;
-	while (i >= 0 && fl->map [i] != -2)
+	while (i >= 0 && fl->map[i] != -2)
 		i--;
 	if (i < 0)
 		return (0);
