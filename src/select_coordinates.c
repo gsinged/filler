@@ -12,12 +12,37 @@
 
 #include "filler.h"
 
+static int	check_coord_a(t_fl *fl, int i1, int j,)
+{
+	int		ext;
+	int		map_i;
+
+	ext = -1;
+	if (fl->piece[j])
+	{
+		map_i = fl->map[i + (j / fl->py) * fl->y + j % fl->py];
+		if (map_i == -2)
+			return (0);
+		else if (map_i == -1)
+			ext++;
+		else
+		{
+			if (!mm)
+				mm = map_i;
+			else if (mm > map_i)
+				mm = map_i;
+			m += map_i;
+		}
+	}
+	if (ext != 0)
+		return (0);
+	return (1);
+}
+
 int			check_coord(t_fl *fl, int i, int *place)
 {
 	int		j;
 	int		m;
-	int		ext;
-	int		map_i;
 	int		mm;
 
 	if (((i / fl->y + fl->px) > fl->x) || ((i % fl->y + fl->py) > fl->y))
@@ -25,7 +50,7 @@ int			check_coord(t_fl *fl, int i, int *place)
 	j = 0;
 	m = 0;
 	mm = 0;
-	ext = -1;
+
 	while (j < fl->pxy)
 	{
 		if (fl->piece[j])
@@ -52,12 +77,19 @@ int			check_coord(t_fl *fl, int i, int *place)
 	return (mm);
 }
 
-/*
-int			choose_better(t_fl *fl, int *crd, int  crd1)
+void			select_coordinates_a(t_fl *fl, int *i, int *crd, int *crd1)
 {
-	return (0);
+	if ((crd1[1] = check_coord(fl, *i, (&crd1[2]))))
+	{
+		if (crd[1] > crd1[1] || (crd[1] == crd1[1] && crd[2] > crd1[2]))
+		{
+			crd[0] = *i;
+			crd[1] = crd1[1];
+			crd[2] = crd1[2];
+		}
+	}
+	(*i)++;
 }
-*/
 
 int			select_coordinates(t_fl *fl)
 {
@@ -78,19 +110,7 @@ int			select_coordinates(t_fl *fl)
 		i++;
 	}
 	while (i < fl->xy)
-	{
-		if ((crd1[1] = check_coord(fl, i, (&crd1[2]))))
-		{
-			if (crd[1] > crd1[1] || (crd[1] == crd1[1] && crd[2] > crd1[2]))
-			{
-				crd[0] = i;
-				crd[1] = crd1[1];
-				crd[2] = crd1[2];
-			}
-//			else if (crd[1] == crd1[1])
-		}
-		i++;
-	}
+		select_coordinates_a(fl, &i, crd, crd1);
 		ft_putnbr(crd[0] / fl->y);
 		ft_putchar(' ');
 		ft_putnbr(crd[0] % fl->y);
