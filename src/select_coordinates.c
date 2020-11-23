@@ -37,6 +37,10 @@ int			check_coord(t_fl *fl, int i)
 				ext++;
 			else
 			{
+				if (!mm)
+					mm = map_i;
+				else if (mm > map_i)
+					mm = map_i;
 				m += map_i;
 			}
 		}
@@ -44,7 +48,7 @@ int			check_coord(t_fl *fl, int i)
 	}
 	if (ext != 0)
 		return (0);
-	return (m);
+	return (mm);
 }
 
 /*
