@@ -12,7 +12,7 @@
 
 #include "filler.h"
 
-int			check_coord(t_fl *fl, int i)
+int			check_coord(t_fl *fl, int i, int *place)
 {
 	int		j;
 	int		m;
@@ -48,6 +48,7 @@ int			check_coord(t_fl *fl, int i)
 	}
 	if (ext != 0)
 		return (0);
+	*place = m;
 	return (mm);
 }
 
@@ -60,8 +61,8 @@ int			choose_better(t_fl *fl, int *crd, int  crd1)
 
 int			select_coordinates(t_fl *fl)
 {
-	int		crd[2];
-	int		crd1[2];
+	int		crd[3];
+	int		crd1[3];
 	int		i;
 
 	i = 0;
@@ -69,7 +70,7 @@ int			select_coordinates(t_fl *fl)
 	crd[1] = 0;
 	while (i < fl->xy && !crd[1])
 	{
-		if ((crd1[1] = check_coord(fl, i)))
+		if ((crd1[1] = check_coord(fl, i, (&crd1[2]))))
 		{
 			crd[0] = i;
 			crd[1] = crd1[1];
@@ -78,12 +79,13 @@ int			select_coordinates(t_fl *fl)
 	}
 	while (i < fl->xy)
 	{
-		if ((crd1[1] = check_coord(fl, i)))
+		if ((crd1[1] = check_coord(fl, i, (&crd1[2]))))
 		{
-			if (crd[1] > crd1[1])
+			if (crd[1] > crd1[1] || (crd[1] == crd1[1] && crd[2] > crd1[2]))
 			{
 				crd[0] = i;
 				crd[1] = crd1[1];
+				crd[2] = crd1[2];
 			}
 //			else if (crd[1] == crd1[1])
 		}
