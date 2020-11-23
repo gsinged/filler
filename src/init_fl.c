@@ -100,6 +100,9 @@ int			get_piece(t_fl *fl)
 		free(line);
 		i++;
 	}
+	fl->mpx = fl->x + fl->px * 2;
+	fl->mpy = fl->y + fl->py * 2;
+	fl->mpxy = fl->mpx * fl->mpy;
 	return (0);
 }
 

@@ -31,6 +31,9 @@ typedef struct	s_filler
 	int			py;
 	int			pxy;
 	int			*piece;
+	int			mpx;
+	int 		mpy;
+	int			mpxy;
 }				t_fl;
 
 t_fl			*init_fl(void);
