@@ -50,6 +50,7 @@ int				manhattan(t_fl *fl);
 int				select_coordinates(t_fl *fl);
 int				get_map(t_fl *fl);
 void			ft_piece_delete(t_fl *fl);
+void			ft_fl_delete(t_fl **fl);
 
 int				ft_error(void);
 t_fl			*ft_error_tfl(void);
