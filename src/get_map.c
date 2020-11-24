@@ -72,6 +72,7 @@ int			get_map(t_fl *fl)
 		free(line);
 		i++;
 	}
+	ft_piece_delete(fl);
 	get_piece(fl);
 	return (1);
 }

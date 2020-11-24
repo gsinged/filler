@@ -32,7 +32,7 @@ typedef struct	s_filler
 	int			pxy;
 	int			*piece;
 	int			mpx;
-	int 		mpy;
+	int			mpy;
 	int			mpxy;
 }				t_fl;
 
@@ -46,15 +46,13 @@ int				nbr_dig_nbr(int n);
 int				init_map_line_p1(t_fl *fl, char *line, int x);
 int				init_map_line_p2(t_fl *fl, char *line, int x);
 int				get_piece(t_fl *fl);
-
 int				manhattan(t_fl *fl);
 int				select_coordinates(t_fl *fl);
-
 int				get_map(t_fl *fl);
+void			ft_piece_delete(t_fl *fl);
 
 int				ft_error(void);
 t_fl			*ft_error_tfl(void);
-
 
 void			test_print_map(t_fl *fl);
 

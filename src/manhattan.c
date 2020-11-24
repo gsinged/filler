@@ -92,6 +92,5 @@ int			manhattan(t_fl *fl)
 		}
 		i++;
 	}
-	test_print_map(fl);
 	return (0);
 }

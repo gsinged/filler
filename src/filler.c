@@ -62,7 +62,6 @@ void		test_print_piece(t_fl *fl)
 
 	if (fl->piece)
 	{
-//		ft_putchar('\n');
 		ft_printf("Piece %d %d\n", fl->px, fl->py);
 		i = 0;
 		pxy = fl->px * fl->py;
@@ -130,11 +129,7 @@ int			fl(void)
 
 	fl = init_fl();
 	manhattan(fl);
-//	test_print_piece(fl);
-//	ft_printf("Manhatten\n");
-//	test_print_map(fl);
 	select_coordinates(fl);
-
 	while (get_map(fl))
 	{
 		manhattan(fl);
