@@ -106,8 +106,9 @@ void			select_coordinates(t_fl *fl)
 	int		end;
 
 	i = 0;
+	ft_bzero(&crd, sizeof(crd));
+	ft_bzero(&crd1, sizeof(crd1));
 	crd[0] = -1;
-	crd[1] = 0;
 	end = (fl->x + fl->px) * fl->mpy;
 	while ((i < end) && !crd[1])
 	{
