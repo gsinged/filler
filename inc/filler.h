@@ -55,4 +55,6 @@ void			ft_fl_delete(t_fl **fl);
 int				ft_error(void);
 t_fl			*ft_error_tfl(void);
 
+void			test_print_map(t_fl *fl);
+
 #endif
