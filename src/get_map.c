@@ -22,7 +22,7 @@ int			check_size_map_a(char *line, int *xy0)
 	{
 		xy = ft_atoi(line);
 		if (xy != *xy0)
-			return (ft_error());
+			return (0);
 		i = nbr_dig_nbr(xy);
 	}
 	return (i);
@@ -34,21 +34,21 @@ int			check_size_map(t_fl *fl)
 	int		i;
 
 	if ((get_next_line(0, &line) != 1))
-		return (ft_error());
+		return (ft_error(fl, &line));
 	if (ft_strncmp(line, "Plateau ", 8))
-		return (ft_error());
+		return (ft_error(fl, &line));
 	if (!(i = check_size_map_a(line + 8, &(fl->x))))
-		return (ft_error());
+		return (ft_error(fl, &line));
 	if (*(line + 8 + i) != ' ')
-		return (ft_error());
+		return (ft_error(fl, &line));
 	if (!(i += check_size_map_a(line + 9 + i, &(fl->y))))
-		return (ft_error());
+		return (ft_error(fl, &line));
 	if (ft_strcmp(line + 9 + i, ":"))
-		return (ft_error());
+		return (ft_error(fl, &line));
 	fl->xy = fl->x * fl->y;
 	ft_strclr(line);
 	free(line);
-	return (0);
+	return (1);
 }
 
 int			get_map(t_fl *fl)
@@ -56,14 +56,16 @@ int			get_map(t_fl *fl)
 	int		i;
 	char	*line;
 
-	check_size_map(fl);
-	init_map_f_str(fl);
+	if (!(check_size_map(fl)))
+		return (0);
+	if (!(init_map_f_str(fl)))
+		return (0);
 	ft_bzero(fl->map, sizeof(int) * fl->xy);
 	i = 0;
 	while (i < fl->x)
 	{
 		if ((get_next_line(0, &line) != 1))
-			return (ft_error());
+			return (ft_error(fl, &line));
 		if (fl->pl == 1)
 			init_map_line_p1(fl, line, i);
 		else if (fl->pl == 2)
@@ -73,6 +75,7 @@ int			get_map(t_fl *fl)
 		i++;
 	}
 	ft_piece_delete(fl);
-	get_piece(fl);
+	if (!(get_piece(fl)))
+		return (0);
 	return (1);
 }

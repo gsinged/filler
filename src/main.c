@@ -91,7 +91,7 @@ int			fl(void)
 		manhattan(fl);
 		select_coordinates(fl);
 	}
-	ft_fl_delete(&fl);
+//	ft_fl_delete(&fl);
 	return (0);
 }
 

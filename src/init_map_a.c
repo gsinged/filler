@@ -44,17 +44,17 @@ int			get_size_map(t_fl *fl)
 	int		i;
 
 	if ((get_next_line(0, &line) != 1))
-		return (ft_error());
+		return (ft_error(fl, &line));
 	if (ft_strncmp(line, "Plateau ", 8))
-		return (ft_error());
+		return (ft_error(fl, &line));
 	if (!(i = get_size_map_a(line + 8, &(fl->x))))
-		return (ft_error());
+		return (ft_error(fl, &line));
 	if (*(line + 8 + i) != ' ')
-		return (ft_error());
+		return (ft_error(fl, &line));
 	if (!(i += get_size_map_a(line + 9 + i, &(fl->y))))
-		return (ft_error());
+		return (ft_error(fl, &line));
 	if (ft_strcmp(line + 9 + i, ":"))
-		return (ft_error());
+		return (ft_error(fl, &line));
 	fl->xy = fl->x * fl->y;
 	ft_strclr(line);
 	free(line);

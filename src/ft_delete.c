@@ -45,12 +45,24 @@ void		ft_fl_delete(t_fl **fl)
 	}
 }
 
-t_fl		*ft_error_tfl(void)
+t_fl		*ft_error_tfl(t_fl *fl, char **line)
 {
-	exit(0);
+	if (line && *line)
+	{
+		ft_strclr(*line);
+		ft_strdel(line);
+	}
+	ft_fl_delete(&fl);
+	return (NULL);
 }
 
-int			ft_error(void)
+int			ft_error(t_fl *fl, char **line)
 {
-	exit(0);
+	if (line && *line)
+	{
+		ft_strclr(*line);
+		ft_strdel(line);
+	}
+	ft_fl_delete(&fl);
+	return (0);
 }
