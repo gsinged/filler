@@ -83,7 +83,8 @@ int			fl(void)
 {
 	t_fl *fl;
 
-	fl = init_fl();
+	if (!(fl = init_fl()))
+		return (0);
 	manhattan(fl);
 	select_coordinates(fl);
 	while (get_map(fl))
@@ -91,7 +92,6 @@ int			fl(void)
 		manhattan(fl);
 		select_coordinates(fl);
 	}
-//	ft_fl_delete(&fl);
 	return (0);
 }
 

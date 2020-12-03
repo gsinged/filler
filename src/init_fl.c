@@ -58,24 +58,24 @@ int			get_size_piece(t_fl *fl)
 	fl->pxy = fl->px * fl->py;
 	ft_strclr(line);
 	free(line);
-	return (0);
+	return (1);
 }
 
-int			init_piece_line(t_fl *fl, char *s, int x)
+int			init_piece_line(t_fl *fl, char *line, int x)
 {
 	int		i;
 
 	i = 0;
 	while (i < fl->py)
 	{
-		if (*(s + i) == '*')
+		if (*(line + i) == '*')
 			fl->piece[fl->py * x + i] = 1;
-		else if (*(s + i) != '.')
-			return (ft_error(fl, &s));
+		else if (*(line + i) != '.')
+			return (ft_error(fl, &line));
 		i++;
 	}
-	if (*(s + fl->py) != '\0')
-		return (ft_error(fl, &s));
+	if (*(line + fl->py) != '\0')
+		return (ft_error(fl, &line));
 	return (1);
 }
 
@@ -85,7 +85,8 @@ int			get_piece(t_fl *fl)
 	int		i;
 	char	*line;
 
-	get_size_piece(fl);
+	if (!(get_size_piece(fl)))
+		return (0);
 	if (!(p = (int*)malloc(sizeof(int) * fl->pxy)))
 		return (ft_error(fl, NULL));
 	ft_bzero(p, sizeof(int) * fl->pxy);

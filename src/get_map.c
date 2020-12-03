@@ -66,10 +66,8 @@ int			get_map(t_fl *fl)
 	{
 		if ((get_next_line(0, &line) != 1))
 			return (ft_error(fl, &line));
-		if (fl->pl == 1)
-			init_map_line_p1(fl, line, i);
-		else if (fl->pl == 2)
-			init_map_line_p2(fl, line, i);
+		if (!(fl->init_map_line(fl, line, i)))
+			return (0);
 		ft_strclr(line);
 		free(line);
 		i++;

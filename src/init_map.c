@@ -129,7 +129,7 @@ int			init_map(t_fl *fl)
 		if ((get_next_line(0, &line) != 1))
 			return (ft_error(fl, &line));
 		if (!(fl->init_map_line(fl, line, i)))
-			return (ft_error(fl, &line));
+			return (0);
 		ft_strclr(line);
 		free(line);
 		i++;
