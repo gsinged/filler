@@ -33,6 +33,7 @@ int			check_size_map(t_fl *fl)
 	char	*line;
 	int		i;
 
+	line = NULL;
 	if ((get_next_line(0, &line) != 1))
 		return (ft_error(fl, &line));
 	if (ft_strncmp(line, "Plateau ", 8))
@@ -56,6 +57,7 @@ int			get_map(t_fl *fl)
 	int		i;
 	char	*line;
 
+	line = NULL;
 	if (!(check_size_map(fl)))
 		return (0);
 	if (!(init_map_f_str(fl)))

@@ -17,6 +17,7 @@ int			get_player(t_fl *fl)
 	char	*line;
 	char	*s;
 
+	line = NULL;
 	if ((get_next_line(0, &line) != 1))
 		return (ft_error(fl, &line));
 	if (ft_strncmp(line, "$$$ exec p", 10))
@@ -43,6 +44,7 @@ int			get_size_piece(t_fl *fl)
 	char	*line;
 	int		i;
 
+	line = NULL;
 	if ((get_next_line(0, &line) != 1))
 		return (ft_error(fl, &line));
 	if (ft_strncmp(line, "Piece ", 6))
@@ -85,6 +87,7 @@ int			get_piece(t_fl *fl)
 	int		i;
 	char	*line;
 
+	line = NULL;
 	if (!(get_size_piece(fl)))
 		return (0);
 	if (!(p = (int*)malloc(sizeof(int) * fl->pxy)))
@@ -96,11 +99,10 @@ int			get_piece(t_fl *fl)
 	{
 		if ((get_next_line(0, &line) != 1))
 			return (ft_error(fl, &line));
-		if (!(init_piece_line(fl, line, i)))
+		if (!(init_piece_line(fl, line, i++)))
 			return (0);
 		ft_strclr(line);
 		free(line);
-		i++;
 	}
 	fl->mpx = fl->x + fl->px * 2;
 	fl->mpy = fl->y + fl->py * 2;

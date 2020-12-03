@@ -18,6 +18,7 @@ int			init_map_f_str(t_fl *fl)
 	char		*line;
 	int			i;
 
+	line = NULL;
 	if ((get_next_line(0, &line) != 1))
 		return (ft_error(fl, &line));
 	if (ft_strncmp(line, "    ", 4))
@@ -117,6 +118,7 @@ int			init_map(t_fl *fl)
 	int		i;
 	char	*line;
 
+	line = NULL;
 	get_size_map(fl);
 	init_map_f_str(fl);
 	if (!(map = (int*)malloc(sizeof(int) * fl->xy)))
