@@ -56,6 +56,4 @@ void			ft_fl_delete(t_fl **fl);
 int				ft_error(t_fl *fl, char **line);
 t_fl			*ft_error_tfl(t_fl *fl, char **line);
 
-void			test_print_map(t_fl *fl);
-
 #endif
