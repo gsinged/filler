@@ -119,8 +119,10 @@ int			init_map(t_fl *fl)
 	char	*line;
 
 	line = NULL;
-	get_size_map(fl);
-	init_map_f_str(fl);
+	if (!(get_size_map(fl)))
+		return (0);
+	if (!(init_map_f_str(fl)))
+		return (0);
 	if (!(map = (int*)malloc(sizeof(int) * fl->xy)))
 		return (ft_error(fl, NULL));
 	ft_bzero(map, sizeof(int) * fl->xy);

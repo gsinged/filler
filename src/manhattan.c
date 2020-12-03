@@ -70,7 +70,7 @@ int			manh_prev(t_fl *fl, int i)
 	return (p);
 }
 
-int			manhattan(t_fl *fl)
+void		manhattan(t_fl *fl)
 {
 	int		i;
 	int		next;
@@ -92,5 +92,4 @@ int			manhattan(t_fl *fl)
 		}
 		i++;
 	}
-	return (0);
 }

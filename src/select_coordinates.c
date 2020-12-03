@@ -98,7 +98,7 @@ void			select_coordinates_a(t_fl *fl, int *i, int *crd, int *crd1)
 	(*i)++;
 }
 
-int				select_coordinates(t_fl *fl)
+void			select_coordinates(t_fl *fl)
 {
 	int		crd[3];
 	int		crd1[3];
@@ -121,5 +121,4 @@ int				select_coordinates(t_fl *fl)
 	while (i < end)
 		select_coordinates_a(fl, &i, crd, crd1);
 	check_i(fl, crd[0], 0, 1);
-	return (0);
 }
