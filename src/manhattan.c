@@ -75,9 +75,7 @@ void		manhattan(t_fl *fl)
 	int		i;
 	int		next;
 	int		prev;
-	int		*test;
 
-	test = fl->map;
 	i = 0;
 	while (i < fl->xy)
 	{
